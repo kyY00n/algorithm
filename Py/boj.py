@@ -1,38 +1,36 @@
+import copy
 from collections import deque
 
-N, M = map(int, input().split())  # 사다리 개수, 뱀 개수
+N = int(input())
+graph = [[] for _ in range(N + 1)]  # graph[n] : t_n번째 사람 주변인이 저장된 리스트
+for i in range(1, N + 1):
+    inp = list(map(int, input().split()))
+    graph[i] = copy.deepcopy(inp[:-1])
 
-ans = [0] * 100  # 각 점으로 가는 최소 경로
-ans[0] = 0
+input()
+start = list(map(int, input().split()))
 
-op = [i for i in range(100)]
+ans = [-1] * (N + 1)
 
-for _ in range(N + M):
-    x, y = map(int, input().split())
-    op[x - 1] = y - 1
+for s in start:
+    ans[s] = 0
 
+trust = [0]*(N+1)  # 믿는 주변인의 수를 저장하는 배열
 
 def solve():
-    que = deque([0])
+    que = deque()
+    que.extend(start)
     while que:
-        n = que.popleft()
-        if n == 99:
-            break
-        curr = op[n]
-        ans[curr] = ans[n]
-        for i in range(1, 7):
-            if curr + i > 99:
-                continue
-            if ans[curr + i] == 0:
-                que.append(curr + i)
-                ans[curr + i] = ans[curr] + 1
-
-    return ans[99]
+        curr = que.popleft()
+        for e in graph[curr]:
+            trust[e] += 1
+            # 주변인의 절반 이상이 루머를 믿는다
+            if ans[e] == -1 and trust[e] >= (len(graph[e])+1)//2:
+                ans[e] = ans[curr] + 1
+                que.append(e)
 
 
-print(solve())
+solve()
 
-# for i in range(10):
-#     for j in range(10):
-#         print(ans[i*10+j], end=' ')
-#     print()
+for i in range(1, len(ans)):
+    print(ans[i], end=' ')
