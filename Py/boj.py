@@ -1,36 +1,18 @@
-import copy
-from collections import deque
+n = int(input())
 
-N = int(input())
-graph = [[] for _ in range(N + 1)]  # graph[n] : t_n번째 사람 주변인이 저장된 리스트
-for i in range(1, N + 1):
-    inp = list(map(int, input().split()))
-    graph[i] = copy.deepcopy(inp[:-1])
+dp = [0] * 50001
+dp[1] = 1
 
-input()
-start = list(map(int, input().split()))
+for x in range(1, n + 1):
+    ans = 0
+    i = x
+    while i:
+        a = int(i ** 0.5) ** 2
+        i -= a
+        ans += 1
+    dp[x] = ans
 
-ans = [-1] * (N + 1)
+    for j in range(1, int(x ** 0.5) + 1):
+        dp[x] = min(dp[x], dp[j * j] + dp[x - j * j])
 
-for s in start:
-    ans[s] = 0
-
-trust = [0]*(N+1)  # 믿는 주변인의 수를 저장하는 배열
-
-def solve():
-    que = deque()
-    que.extend(start)
-    while que:
-        curr = que.popleft()
-        for e in graph[curr]:
-            trust[e] += 1
-            # 주변인의 절반 이상이 루머를 믿는다
-            if ans[e] == -1 and trust[e] >= (len(graph[e])+1)//2:
-                ans[e] = ans[curr] + 1
-                que.append(e)
-
-
-solve()
-
-for i in range(1, len(ans)):
-    print(ans[i], end=' ')
+print(dp[n])
