@@ -1,18 +1,15 @@
-n = int(input())
+import sys
+input = sys.stdin.readline
 
-dp = [0] * 50001
-dp[1] = 1
+N, M = map(int, input().split())
+password = dict()
+for _ in range(N):
+    site, pw = input().split()
+    password[site] = pw
 
-for x in range(1, n + 1):
-    ans = 0
-    i = x
-    while i:
-        a = int(i ** 0.5) ** 2
-        i -= a
-        ans += 1
-    dp[x] = ans
+ans = []
+for _ in range(M):
+    site = input()[:-1]
+    ans.append(password[site])
 
-    for j in range(1, int(x ** 0.5) + 1):
-        dp[x] = min(dp[x], dp[j * j] + dp[x - j * j])
-
-print(dp[n])
+print('\n'.join(ans))
