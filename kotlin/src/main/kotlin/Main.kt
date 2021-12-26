@@ -1,8 +1,7 @@
 import java.util.*
-import kotlin.collections.ArrayList
 
 var visited = BooleanArray(1001)
-val adjList = Array(1001) { ArrayList<Int>() }
+val adjList = Array(1001) { PriorityQueue<Int>() }
 
 fun dfs(n: Int) {
     print("$n ")
@@ -34,7 +33,7 @@ fun bfs(n: Int) {
 
 // BOJ 1260. DFS와 BFS
 fun main() = with(Scanner(System.`in`)) {
-    val N = nextInt()
+    nextInt()
     val M = nextInt()
     val V = nextInt()
 
@@ -44,11 +43,11 @@ fun main() = with(Scanner(System.`in`)) {
         adjList[s].add(e)
         adjList[e].add(s)
     }
+
     dfs(V)
     visited = BooleanArray(1001)
     println()
     bfs(V)
 }
 
-// linkedlist로 하면 문제점: 인접리스트에 있는 애들 중에 가장 먼저 pop되어야 하는 애가 min값이어서 굳이굳이 우선순위 큐로 만들어야함
-// 그래서 지금 코드로 하면 수가 작은 정점부터 가지 않고 먼저 간선으로 등록된 정점부터 방문하게 됨.
+// priorityQueue 씀
