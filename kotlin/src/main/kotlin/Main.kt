@@ -1,5 +1,3 @@
-import java.util.*
-
 fun binarySearch(n: Int, arr: IntArray, s: Int): Int { // return if n is in arr of s elements
     var mid: Int = s / 2
     var left = 0
@@ -19,15 +17,14 @@ fun binarySearch(n: Int, arr: IntArray, s: Int): Int { // return if n is in arr 
     return 0
 }
 
-// BOJ 1920. 수찾기
-fun main() = with(Scanner(System.`in`)) {
-    val N = nextInt()
-    val arr = IntArray(N)
-    for (i in 0 until N) {
-        arr[i] = nextInt()
-    }
+// BOJ 1920. 수 찾기
+fun main() = with(System.`in`.bufferedReader()) {
+    val N = readLine().toInt()
+    val arr: IntArray = readLine().split(" ").map { it.toInt() }.toIntArray()
     arr.sort()
-    repeat(nextInt()) {
-        print("${binarySearch(nextInt(), arr, N)} ")
+    readLine()
+    val input = readLine().split(" ").map { it.toInt() }.toIntArray()
+    for (i in input) {
+        println(binarySearch(i, arr, N))
     }
 }
