@@ -6,10 +6,10 @@ class BOJ1920 {
         if (left > right) return 0
 
         val mid = (left + right) / 2
-        if (arr[mid] == target) return 1
 
-        if (arr[mid] < target) return binarySearch(arr, target, left + 1, right)
-        return binarySearch(arr, target, left, right - 1)
+        return if (arr[mid] == target) 1
+        else if (arr[mid] < target) binarySearch(arr, target, left + 1, right)
+        else binarySearch(arr, target, left, right - 1)
     }
 }
 
