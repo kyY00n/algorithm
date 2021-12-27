@@ -1,35 +1,35 @@
 import java.util.*
-import kotlin.collections.ArrayList
 
-class BOJ1920 {
-    fun binarySearch(arr: List<Int>, target: Int, left: Int, right: Int): Int {
-        if (left > right) return 0
+class Baekjoon_1920 {
 
-        val mid = (left + right) / 2
+    fun binarySearch(arr: List<Int>, targetValue: Int, start: Int, end: Int): Int {
+        if (start > end) return 0
 
-        return if (arr[mid] == target) 1
-        else if (arr[mid] < target) binarySearch(arr, target, left + 1, right)
-        else binarySearch(arr, target, left, right - 1)
+        val fivotIndex = (start + end) / 2
+        val fivotValue = arr[fivotIndex]
+
+        return if (targetValue == fivotValue) 1
+        else if (targetValue > fivotValue) binarySearch(arr, targetValue, fivotIndex + 1, end)
+        else binarySearch(arr, targetValue, start, fivotIndex - 1)
     }
 }
 
+fun main() {
+    val scan = Scanner(System.`in`)
+    val n = scan.nextInt()
+    val arr = mutableListOf<Int>()
 
-// BOJ 1920. 수찾기
-fun main() = with(Scanner(System.`in`)) {
-    val N = nextInt()
-    val arr: MutableList<Int> = ArrayList()
-    repeat(N) {
-        arr.add(nextInt())
-    }
+    repeat(n) { arr.add(scan.nextInt()) }
+
+    val m = scan.nextInt()
+    val targetList = mutableListOf<Int>()
+    repeat(m) { targetList.add(scan.nextInt()) }
+
     arr.sort()
-    val M = nextInt()
-    val targets: MutableList<Int> = ArrayList()
-    repeat(M) {
-        targets.add(nextInt())
-    }
-    BOJ1920().run {
-        targets.forEach {
-            println(binarySearch(arr, it, 0, N-1))
+
+    Baekjoon_1920().run {
+        targetList.forEach { targetValue ->
+            println(binarySearch(arr, targetValue, 0, arr.size - 1))
         }
     }
 }
