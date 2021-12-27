@@ -1,13 +1,33 @@
 import java.util.*
 
-// BOJ 2747. 피보나치 수
-fun main() = with(Scanner(System.`in`)) {
-    val dp = IntArray(46) { 0 }
-    dp[0] = 0
-    dp[1] = 1
-    for (i in 2..45) {
-        dp[i] = dp[i - 1] + dp[i - 2]
+fun binarySearch(n: Int, arr: IntArray, s: Int): Int { // return if n is in arr of s elements
+    var mid: Int = s / 2
+    var left = 0
+    var right = s - 1
+    while (left <= right) {
+        if (arr[mid] == n) {
+            return 1
+        }
+        if (arr[mid] > n) {
+            right = mid
+            mid = (left + right) / 2
+        } else {
+            left = mid + 1
+            mid = (left + right) / 2
+        }
     }
-    val n = nextInt()
-    println(dp[n])
+    return 0
+}
+
+// BOJ 1920. 수찾기
+fun main() = with(Scanner(System.`in`)) {
+    val N = nextInt()
+    val arr = IntArray(N)
+    for (i in 0 until N) {
+        arr[i] = nextInt()
+    }
+    arr.sort()
+    repeat(nextInt()) {
+        print("${binarySearch(nextInt(), arr, N)} ")
+    }
 }
