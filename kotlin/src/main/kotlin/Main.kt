@@ -1,31 +1,53 @@
 import java.util.*
-import kotlin.collections.ArrayList
 
-fun getInterval(n: Int): MutableList<Int> {
-    val first = n % 10
-    val list: MutableList<Int> = ArrayList()
-    if (first == 0) {
-        list.add(10)
-        return list
+var visited = BooleanArray(1001)
+val adjMat = Array(1001) { IntArray(1001) { 0 } }
+
+fun dfs(n: Int, size: Int) {
+    print("$n ")
+    visited[n] = true
+    for (i in 0..size) {
+        if (adjMat[n][i] == 1) {
+            if (!visited[i]) {
+                dfs(i, size)
+            }
+        }
     }
-    list.add(first)
-    while (list[0] != list[list.size - 1] * first % 10) {
-        list.add(list[list.size - 1] * first % 10)
-    }
-    return list
 }
 
-// BOJ 1009.분산처리
-fun main() = with(Scanner(System.`in`)) {
-    val res: MutableList<Int> = ArrayList()
-    repeat(
-        nextInt()
-    ) {
-        val a = nextInt()
-        val b = nextInt()
-        val intervalSeq = getInterval(a)
-        val intervalSize = intervalSeq.size
-        res.add(intervalSeq[(b - 1) % intervalSize])
+fun bfs(n: Int, size: Int) {
+    val queue: Queue<Int> = LinkedList()
+    queue.add(n)
+    visited[n] = true
+    while(queue.isNotEmpty()) {
+        val head = queue.poll()
+        print("$head ")
+        for (i in 0..size) {
+            if (adjMat[head][i] == 1) {
+                if (!visited[i]) {
+                    queue.add(i)
+                    visited[i] = true
+                }
+            }
+        }
     }
-    res.forEach { println(it) }
+}
+
+// BOJ 1260. DFS와 BFS
+fun main() = with(Scanner(System.`in`)) {
+    val N = nextInt()
+    val M = nextInt()
+    val V = nextInt()
+
+    repeat(M) {
+        val s = nextInt()
+        val e = nextInt()
+        adjMat[s][e] = 1
+        adjMat[e][s] = 1
+    }
+
+    dfs(V, N)
+    visited = BooleanArray(1001)
+    println()
+    bfs(V, N)
 }
