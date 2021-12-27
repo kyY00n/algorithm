@@ -6,9 +6,11 @@ val adjList = Array(1001) { PriorityQueue<Int>() }
 fun dfs(n: Int) {
     print("$n ")
     visited[n] = true
-    for (i in adjList[n]) {
-        if (!visited[i]) {
-            dfs(i)
+    val adjListIter = adjList[n].iterator()
+    while (adjListIter.hasNext()) {
+        val curr = adjListIter.next()
+        if (!visited[curr]) {
+            dfs(curr)
         }
     }
 }
@@ -20,10 +22,12 @@ fun bfs(n: Int) {
     while (queue.isNotEmpty()) {
         val i = queue.remove()
         print("$i ")
-        for (j in adjList[i]) {
-            if (!visited[j]) {
-                queue.add(j)
-                visited[j] = true
+        val adjListIter = adjList[i].iterator()
+        while (adjListIter.hasNext()) {
+            val curr = adjListIter.next()
+            if (!visited[curr]) {
+                queue.add(curr)
+                visited[curr] = true
             }
         }
     }
