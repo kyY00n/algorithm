@@ -1,13 +1,35 @@
 import java.util.*
 
-// BOJ 2747. 피보나치 수
-fun main() = with(Scanner(System.`in`)) {
-    val dp = IntArray(46) { 0 }
-    dp[0] = 0
-    dp[1] = 1
-    for (i in 2..45) {
-        dp[i] = dp[i - 1] + dp[i - 2]
+class Baekjoon_1920 {
+
+    fun binarySearch(arr: List<Int>, targetValue: Int, start: Int, end: Int): Int {
+        if (start > end) return 0
+
+        val fivotIndex = (start + end) / 2
+        val fivotValue = arr[fivotIndex]
+
+        return if (targetValue == fivotValue) 1
+        else if (targetValue > fivotValue) binarySearch(arr, targetValue, fivotIndex + 1, end)
+        else binarySearch(arr, targetValue, start, fivotIndex - 1)
     }
-    val n = nextInt()
-    println(dp[n])
+}
+
+fun main() {
+    val scan = Scanner(System.`in`)
+    val n = scan.nextInt()
+    val arr = mutableListOf<Int>()
+
+    repeat(n) { arr.add(scan.nextInt()) }
+
+    val m = scan.nextInt()
+    val targetList = mutableListOf<Int>()
+    repeat(m) { targetList.add(scan.nextInt()) }
+
+    arr.sort()
+
+    Baekjoon_1920().run {
+        targetList.forEach { targetValue ->
+            println(binarySearch(arr, targetValue, 0, arr.size - 1))
+        }
+    }
 }
