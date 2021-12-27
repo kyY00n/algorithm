@@ -18,13 +18,19 @@ fun binarySearch(n: Int, arr: IntArray, s: Int): Int { // return if n is in arr 
 }
 
 // BOJ 1920. 수 찾기
-fun main() = with(System.`in`.bufferedReader()) {
-    val N = readLine().toInt()
-    val arr: IntArray = readLine().split(" ").map { it.toInt() }.toIntArray()
+fun main() {
+    val br = System.`in`.bufferedReader()
+    val bw = System.out.bufferedWriter()
+    val N = br.readLine().toInt()
+    val arr: IntArray = br.readLine().split(" ").map { it.toInt() }.toIntArray()
     arr.sort()
-    readLine()
-    val input = readLine().split(" ").map { it.toInt() }.toIntArray()
+    br.readLine()
+    val input = br.readLine().split(" ").map { it.toInt() }.toIntArray()
     for (i in input) {
-        println(binarySearch(i, arr, N))
+        bw.write(binarySearch(i, arr, N).toString())
+        bw.newLine()
     }
+    bw.flush()
+    bw.close()
+    br.close()
 }
