@@ -1,45 +1,52 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Boj4256 {
+
+    private static int[] pre;
+    private static int[] in;
+    private static Map<Integer, Integer> indexMap;
+    private static StringBuilder sb;
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(br.readLine());
-        while ( T-- > 0 ) {
+
+        while (T-- > 0) {
             int N = Integer.parseInt(br.readLine());
+            pre = new int[N];
+            in = new int[N];
+            indexMap = new HashMap<>();
+            sb = new StringBuilder();
+
             String[] preStr = br.readLine().split(" ");
             String[] inStr = br.readLine().split(" ");
-            List<String> pre = List.of(preStr);
-            List<String> in = List.of(inStr);
-            post(pre, in);
-            System.out.println();
+
+            for (int i = 0; i < N; i++) {
+                pre[i] = Integer.parseInt(preStr[i]);
+                in[i] = Integer.parseInt(inStr[i]);
+                indexMap.put(in[i], i);
+            }
+
+            postOrder(0, N - 1, 0, N - 1);
+            System.out.println(sb.toString().trim());
         }
     }
 
-    private static void post(List<String> pre, List<String> in) {
-        if (pre.isEmpty() && in.isEmpty()) {
-            return;
-        }
-        if (pre.size() == 1 && in.size() == 1) {
-            System.out.printf("%s ", pre.get(0));
+    private static void postOrder(int preStart, int preEnd, int inStart, int inEnd) {
+        if (preStart > preEnd || inStart > inEnd) {
             return;
         }
 
-        String root = pre.get(0);
-        int rootIdxIn = in.indexOf(root);
+        int root = pre[preStart];
+        int rootIdxIn = indexMap.get(root);
+        int leftTreeSize = rootIdxIn - inStart;
 
-        List<String> leftPre = pre.subList(1, rootIdxIn + 1);
-        List<String> leftIn = in.subList(0, rootIdxIn);
+        postOrder(preStart + 1, preStart + leftTreeSize, inStart, rootIdxIn - 1);
+        postOrder(preStart + leftTreeSize + 1, preEnd, rootIdxIn + 1, inEnd);
 
-        post(leftPre, leftIn);
-
-        List<String> rightPre = pre.subList(rootIdxIn+1, pre.size());
-        List<String> rightIn = in.subList(rootIdxIn+1, in.size());
-        post(rightPre, rightIn);
-
-        System.out.printf("%s ", root);
+        sb.append(root).append(' ');
     }
-
 }
