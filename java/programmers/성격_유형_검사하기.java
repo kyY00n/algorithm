@@ -18,8 +18,7 @@ public class 성격_유형_검사하기 {
     }
 
     public static String solution(String[] survey, int[] choices) {
-        int count = survey.length;
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < survey.length; i++) {
             String s = survey[i];
             Integer preScore = scores.get(s);
             int choice = choices[i] - 4;
