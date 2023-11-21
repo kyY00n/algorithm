@@ -11,8 +11,6 @@ public class 단어변환 {
     }
 }
 
-
-
 class 단어변환_solution {
     String[] w;
     int[][] adjMat;
@@ -31,14 +29,13 @@ class 단어변환_solution {
                 targetIdx = i;
             }
         }
-
         if (targetIdx == -1) {
             return 0;
         }
 
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
-                if (hi(w[i], w[j])) {
+                if (canConvert(w[i], w[j])) {
                     adjMat[i][j] = 1;
                 }
             }
@@ -47,7 +44,7 @@ class 단어변환_solution {
         return bfs(begin, targetIdx);
     }
 
-    private boolean hi(String begin, String target) {
+    private boolean canConvert(String begin, String target) {
         int count = 0;
         char[] b = begin.toCharArray();
         char[] t = target.toCharArray();
@@ -62,7 +59,7 @@ class 단어변환_solution {
     private int bfs(String begin, int dest) {
         Queue<int[]> q = new LinkedList<>();
         for(int i = 0; i < n; i++) {
-            if(hi(begin, w[i])) {
+            if(canConvert(begin, w[i])) {
                 q.offer(new int[] {i, 1});
             }
         }
