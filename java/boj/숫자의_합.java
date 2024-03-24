@@ -8,7 +8,8 @@ public class 숫자의_합 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         br.readLine();
         int answer = Arrays.stream(br.readLine().split(""))
-                .mapToInt(number -> Integer.parseInt(number)).sum();
+                .mapToInt(number -> Integer.parseInt(number))
+                .sum();
         System.out.println(answer);
     }
 }
