@@ -1,4 +1,4 @@
-package edoc.week2.homework;
+package boj;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
