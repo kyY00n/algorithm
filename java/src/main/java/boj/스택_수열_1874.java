@@ -24,20 +24,20 @@ public class 스택_수열_1874 {
 
         StringBuilder sb = new StringBuilder();
 
-        int st = 1;
+        int 마지막으로_넣은_수 = 1;
         for(int i = 0; i < N; i++) {
-            int num = seq[i];
-            if (st <= num) {
-                while(st <= num) {
-                    stack.push(st++);
+            int 이번에_비교할_수 = seq[i];
+            if (마지막으로_넣은_수 <= 이번에_비교할_수) {
+                while(마지막으로_넣은_수 <= 이번에_비교할_수) {
+                    stack.push(마지막으로_넣은_수++);
                     sb.append("+\n");
                 }
                 stack.pop();
                 sb.append("-\n");
                 continue;
             }
-            int top = stack.pop();
-            if (top > num) {
+            int 스택의_top = stack.pop();
+            if (스택의_top > 이번에_비교할_수) { // 비교할 수보다 큰 건 아직 나오면 안되는데!
                 System.out.println("NO");
                 return;
             }
