@@ -1,4 +1,4 @@
-package boj;
+package boj.BOJ_1722;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
