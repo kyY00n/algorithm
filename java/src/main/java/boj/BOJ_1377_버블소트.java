@@ -6,6 +6,31 @@ import java.util.Arrays;
 
 public class BOJ_1377_버블소트 {
 
+    static class Element implements Comparable {
+        private int index;
+        private int value;
+
+        public Element(final int index, final int value) {
+            this.index = index;
+            this.value = value;
+        }
+
+        @Override
+        public int compareTo(final Object o) {
+            Element other = (Element) o;
+            return this.value - other.value;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -26,31 +51,6 @@ public class BOJ_1377_버블소트 {
         }
 
         System.out.println(max + 1);
-    }
-
-}
-
-class Element implements Comparable {
-    private int index;
-    private int value;
-
-    public Element(final int index, final int value) {
-        this.index = index;
-        this.value = value;
-    }
-
-    @Override
-    public int compareTo(final Object o) {
-        Element other = (Element) o;
-        return this.value - other.value;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public int getValue() {
-        return value;
     }
 
 }
