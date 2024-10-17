@@ -1,6 +1,7 @@
 package study;
 
 import java.util.Arrays;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -92,6 +93,18 @@ public class SortingTest {
         int[] sorted = Sorting.quicksort(array);
         //then
         assertThat(sorted).containsExactly(0, 1, 2, 4, 5, 6, 44, 63, 87, 99, 283);
+    }
+
+    @Test
+    void quick_select_kth_element() {
+        //given
+        int[] array = {99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0};
+
+        //when
+        int selected = Sorting.quickSelect(array, 5);
+
+        //then
+        assertThat(selected).isEqualTo(5);
     }
 
 }

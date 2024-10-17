@@ -168,4 +168,40 @@ public class Sorting {
         array[idx2] = temp;
     }
 
+    public static int quickSelect(final int[] array, int k) {
+        return quickSelect(array, 0, array.length - 1, k - 1);
+
+    }
+
+    private static int quickSelect(final int[] array, int start, int end, int k) {
+        if (start == end) {
+            return array[start];
+        }
+        int pivot = getPivot(array, start, end);
+        int left = start;
+        int right = end - 1;
+        while (left <= right) {
+            if (array[left] < pivot) {
+                left++;
+                continue;
+            }
+            if (array[right] > pivot) {
+                right--;
+                continue;
+            }
+            swap(array, left, right);
+        }
+        swap(array, left, end);
+
+        // Only this part is different from quicksort
+        if (left == k) {
+            return array[left];
+        }
+        // if the left is smaller than k, we have to find the kth element on the right side
+        if (left < k) {
+            return quickSelect(array, left + 1, end, k);
+        }
+        // if the left is bigger than k, we have to find the kth element on the left side
+        return quickSelect(array, start, left - 1, k);
+    }
 }
