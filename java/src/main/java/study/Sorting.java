@@ -90,7 +90,7 @@ public class Sorting {
 
     private static void quicksort(int[] array, int start, int end) {
         // base case
-        if (start == end) {
+        if (start >= end) { // simply avoid using invalid range of parameter by testing if start is not less than end
             return;
         }
 
@@ -128,12 +128,8 @@ public class Sorting {
 
         // 4 3 3 1 5 6 7
         //         l
-        if (left > start) {
-            quicksort(array, start, left - 1);
-        }
-        if (left < end) {
-            quicksort(array, left + 1, end);
-        }
+        quicksort(array, start, left - 1);
+        quicksort(array, left + 1, end);
     }
 
     private static int getPivot(final int[] array, int start, int end) {
