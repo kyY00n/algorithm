@@ -66,4 +66,28 @@ public class SortingTest {
         );
     }
 
+    // test for quicksort
+    @Test
+    void quick_sort() {
+        //given
+        int[] array = {99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0};
+
+        //when
+        int[] sorted = Sorting.quicksort(array);
+        //then
+        assertThat(sorted).containsExactly(0, 1, 2, 4, 5, 6, 44, 63, 87, 99, 283);
+    }
+
+    // test for already sorted array
+    @Test
+    void quick_sort_already_sorted() {
+        //given
+        int[] array = {0, 1, 2, 4, 5, 6, 44, 63, 87, 99, 283};
+
+        //when
+        int[] sorted = Sorting.quicksort(array);
+        //then
+        assertThat(sorted).containsExactly(0, 1, 2, 4, 5, 6, 44, 63, 87, 99, 283);
+    }
+
 }

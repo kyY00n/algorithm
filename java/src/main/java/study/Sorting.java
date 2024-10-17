@@ -83,4 +83,71 @@ public class Sorting {
         return merged;
     }
 
+    public static int[] quicksort(int[] array) {
+        quicksort(array, 0, array.length - 1);
+        return array;
+    }
+
+    private static void quicksort(int[] array, int start, int end) {
+        // base case
+        if (start == end) {
+            return;
+        }
+
+        // get a pivot
+        int pivot = getPivot(array, start, end); // 5
+
+        // divide by pivot
+        // 4 6 3 7 1 3 5
+        // l         r
+        //   l       r
+        // 4 3 3 7 1 6 5
+        //   l       r
+        //     l   r
+        //       l r
+        // 4 3 3 1 7 6 5
+        //       l r
+        //       r l
+
+        int left = start;
+        int right = end - 1;
+
+        while (left <= right) { // after closing the while loop, we get right < left and
+            if (array[left] < pivot) {
+                left++;
+                continue;
+            }
+            if (array[right] > pivot) {
+                right--;
+                continue;
+            }
+            swap(array, left, right);
+        }
+
+        swap(array, left, end);
+
+        // 4 3 3 1 5 6 7
+        //         l
+        if (left > start) {
+            quicksort(array, start, left - 1);
+        }
+        if (left < end) {
+            quicksort(array, left + 1, end);
+        }
+    }
+
+    private static int getPivot(final int[] array, int start, int end) {
+        int middle = start + (end - start) / 2;
+        int pivot = array[middle];
+        array[middle] = array[end];
+        array[end] = pivot;
+        return pivot;
+    }
+
+    private static void swap(final int[] array, int idx1, int idx2) {
+        int temp = array[idx1];
+        array[idx1] = array[idx2];
+        array[idx2] = temp;
+    }
+
 }
