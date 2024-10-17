@@ -1,5 +1,6 @@
 package study;
 
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -74,6 +75,9 @@ public class SortingTest {
 
         //when
         int[] sorted = Sorting.quicksort(array);
+
+        System.out.println(Arrays.toString(sorted));
+
         //then
         assertThat(sorted).containsExactly(0, 1, 2, 4, 5, 6, 44, 63, 87, 99, 283);
     }

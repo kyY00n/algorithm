@@ -84,8 +84,30 @@ public class Sorting {
     }
 
     public static int[] quicksort(int[] array) {
-        quicksort(array, 0, array.length - 1);
+        quicksort_easy(array, 0, array.length - 1);
         return array;
+    }
+
+    private static void quicksort_easy(int[] array, int start, int end) {
+        if (start >= end) {
+            return;
+        }
+
+        int pivot = array[end];
+        int i = start - 1;
+        // i 는 pivot 보다 작은 녀석들의 인덱스를 저장
+
+        for (int j = start; j < end; j++) {
+            if (array[j] < pivot) {
+                i++; // pivot 보다 큰 부분으로 i 포인터 전진
+                swap(array, i, j); // pivot보다 작은 array[j]와 swap
+            }
+        }
+
+        // swap pivot with right element
+        swap(array, i + 1, end);
+        quicksort_easy(array, start, i);
+        quicksort_easy(array, i + 2, end);
     }
 
     private static void quicksort(int[] array, int start, int end) {
